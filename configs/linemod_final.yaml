@@ -1,0 +1,18 @@
+names:
+- ape
+- benchvise
+- camera
+- can
+- cat
+- driller
+- duck
+- eggbox
+- glue
+- holepuncher
+- iron
+- lamp
+- phone
+nc: 13
+path: /home/erythm/6d/yolo_dataset
+train: images/train
+val: images/val
