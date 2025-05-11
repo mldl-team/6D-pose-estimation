@@ -74,7 +74,7 @@ Thanks to the [Ultralytics](https://github.com/ultralytics/ultralytics) for the 
 
 Below is an example of YOLOv8 predictions on the validation set:
 
-![Predictions](\yolo_logs\val_main\val_batch2_pred.jpg)
+![Predictions](/yolo_logs/val_main/val_batch2_pred.jpg)
 
 ---
 
