@@ -2,7 +2,7 @@
 dataset/
 yolo_dataset/
 yolo_logs/train_erf/
-
+Phase3_RGB_Crops/
 # === Checkpoints and weights ===
 *.zip
 
