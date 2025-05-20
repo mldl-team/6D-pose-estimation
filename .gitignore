@@ -2,7 +2,8 @@
 dataset/
 yolo_dataset/
 yolo_logs/train_erf/
-Phase3_RGB_Crops/
+crop_rgb/RGB_TestCrops/
+>>>>>>> Stashed changes
 # === Checkpoints and weights ===
 *.zip
 
