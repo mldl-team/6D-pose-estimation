@@ -2,8 +2,8 @@
 dataset/
 yolo_dataset/
 yolo_logs/train_erf/
-crop_rgb/RGB_TestCrops/
->>>>>>> Stashed changes
+pvnet/pvnet_labels/
+
 # === Checkpoints and weights ===
 *.zip
 
