@@ -1,80 +1,110 @@
 # 6D-pose-estimation
 
-# 🔍 Phase1 : YOLOv8 Training on LineMOD Dataset
 
-This project sets up and trains a YOLOv8 model on the LineMOD dataset, specifically tailored for 6D object pose estimation preprocessing.
+This project presents a full pipeline for estimating the 6D pose of objects using RGB-D images. It starts with object detection using YOLOv8 and then refines the object’s position and orientation with a custom deep learning model called Enhanced RCVPose. Everything—from preparing the data and training the models to evaluating results and visualizing the poses—is clearly documented in the 6D-Pose-Estimation.ipynb notebook.
+
+---
+
+## 📌 Description
+
+The goal of this project is to accurately determine the **3D rotation and translation (6D pose)** of objects in an image relative to the camera. This is achieved through a two-stage process:
+
+1. **Object Detection**  
+   A pre-trained YOLOv8s model detects and localizes objects in the RGB images, producing bounding boxes.
+
+2. **Pose Estimation**  
+   The Enhanced RCVPose model uses RGB-D data to predict the 6D pose. It leverages:
+   - A ResNet50 backbone
+   - Feature Pyramid Network (FPN)
+   - Attention modules  
+   for robust multi-scale feature extraction.
+
+The project is tailored for the **LineMOD dataset** and includes full scripts for data preprocessing, training, and evaluation.
+
+---
+
+
+## ✨ Features
+
+-  **YOLOv8s Integration** for object detection
+-  **EnhancedRCVPose Model** with ResNet50, FPN, and Attention
+-  **Data Preprocessing**: radius map generation, pose file creation, and more
+-  **Training & Evaluation**: full loops with detailed metrics
 
 ---
 
 ## 📁 Dataset
 
-We used the **preprocessed LineMOD dataset**, which includes:
+This project uses the **LineMOD** dataset — a standard benchmark for 6D pose estimation.
 
-- `15` object folders (e.g., `01`, `02`, ..., `15`)
-- Each folder contains `rgb`, `depth`, `mask`, `gt.yml`, etc.
- Final classes used:
+Preprocessing includes:
+-  Unzipping preprocessed LineMOD data
+-  Organizing data into object-specific folders
+-  Generating `Outside9.npy` keypoints via Farthest-Point Sampling
+-  Creating `poseXXXXXX.npy` files from `gt.yml`
+-  Formatting RGB, mask, and depth files
+-  Normalizing the data
 
-```python
-[
-  "ape", "benchvise", "camera", "can", "cat",
-  "driller", "duck", "eggbox", "glue",
-  "holepuncher", "iron", "lamp", "phone"
-]
-```
----
-
-## Training
-
-We used the `ultralytics` library and trained the model a with:
-
-- ✅ Model: `YOLOv8s`
-- ✅ Image size: `640×640`
-- ✅ Batch size: `6 or 8` (GPU RAM adjusted)
-- ✅ Epochs: `15`
-- ✅ Patience: `5` (Early stopping)
-- ✅ Optimizer: default (SGD or Adam)
-- ✅ Augmentation: default YOLOv8 augmentations
+The dataset is split into:
+- 70% training
+- 20% validation
+- 10% testing
 
 ---
 
-## 🧾 Validation Artifacts
+## 🛠️ Installation
 
-Each validation run outputs:
-
-- `confusion_matrix.png` + normalized
-- `F1_curve.png`, `P_curve.png`, `R_curve.png`, `PR_curve.png`
-- `val_batch*_pred.jpg` / `val_batch*_labels.jpg`
-
-Use these for post-training diagnostics and overfitting detection.
-
----
-
-## 💡 Future Work
-
-- 🔄 Integrate pose estimation phase using this detector output
-- ⚙️ Optimize hyperparameters (e.g., learning rate, augmentations)
-
----
-
-## 📦 Dependencies
+The notebook is built for use in **Google Colab**. Dependencies are installed within the notebook or You can install all the dependencies at once, you can run the following command in your terminal:
 
 ```bash
-pip install ultralytics opencv-python tqdm Pillow pyyaml
+# Notebook essentials
+pip install -r requirements.txt
 ```
+---
+## Model Architecture
 
+###  Object Detection
+- **YOLOv8s**: A lightweight and accurate object detector from Ultralytics.
+- Used to extract bounding boxes around objects from RGB images.
+
+###  Pose Estimation – EnhancedRCVPose
+- A deep model built on:
+  -  **ResNet50** backbone
+  -  **Feature Pyramid Network (FPN)** for multi-scale features
+  -  **Attention Modules** to focus on relevant object areas
+- **Inputs**:
+  - RGB-D crops (image patches within YOLO bounding boxes)
+  - 9 radius maps from `Outside9.npy`
+- **Outputs**:
+  - 3D translation vector (x, y, z)
+  - 4D rotation quaternion (x, y, z, w)
+  - 9 predicted radius maps (supervised via MSE)
 ---
 
-## 🙏 Acknowledgements
+##  Results
 
-Thanks to the [Ultralytics](https://github.com/ultralytics/ultralytics) for the tools.
+###  Object Detection (YOLOv8)
+Evaluated using:
+-  Precision
+-  Recall
+-  mAP (mean average precision)
+
+###  Pose Estimation (EnhancedRCVPose)
+Evaluated using:
+-  **Translation RMSE**: Mean error in meters for object location
+-  **Rotation Error**: Angle difference (degrees) between predicted and GT rotation
+-  **Points MSE**: Per-pixel error on radius maps
+-  **ADD**: Average Distance between transformed 3D model points
+
+>  Best model selected using validation loss  
 
 ---
 
 ### 📸 Sample Outputs
 
-Below is an example of YOLOv8 predictions on the validation set:
+Below is an example of YOLO predictions and 6D pose estimation results using the EnhancedRCVPose model on the validation sets:
 
-![Predictions](/yolo_logs/val_main/val_batch2_pred.jpg)
-
+![Yolo Prediction](/sample_output/val_batch2_pred.jpg)
+![Pose Estimation Prediction](/sample_output/pose_estimate_pred.png)
 ---
 
