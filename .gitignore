@@ -1,7 +1,6 @@
 # === Datasets and temporary data ===
 dataset/
 yolo_dataset/
-yolo_logs/train_erf/
 
 # === Checkpoints and weights ===
 *.zip
