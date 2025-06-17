@@ -9,10 +9,10 @@ This project presents a full pipeline for estimating the 6D pose of objects usin
 
 The goal of this project is to accurately determine the **3D rotation and translation (6D pose)** of objects in an image relative to the camera. This is achieved through a two-stage process:
 
-1. ** Object Detection**  
+1. **Object Detection**  
    A pre-trained YOLOv8s model detects and localizes objects in the RGB images, producing bounding boxes.
 
-2. ** Pose Estimation**  
+2. **Pose Estimation**  
    The Enhanced RCVPose model uses RGB-D data to predict the 6D pose. It leverages:
    - A ResNet50 backbone
    - Feature Pyramid Network (FPN)
@@ -105,6 +105,6 @@ Evaluated using:
 Below is an example of YOLO predictions and 6D pose estimation results using the EnhancedRCVPose model on the validation sets:
 
 ![Yolo Prediction](/sample_output/val_batch2_pred.jpg)
-![Pose Estimation Prediction](/sample_output/pose_estimate_pred)
+![Pose Estimation Prediction](/sample_output/pose_estimate_pred.png)
 ---
 
