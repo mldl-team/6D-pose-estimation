@@ -57,7 +57,6 @@ The dataset is split into:
 The notebook is built for use in **Google Colab**. Dependencies are installed within the notebook or You can install all the dependencies at once, you can run the following command in your terminal:
 
 ```bash
-# Notebook essentials
 pip install -r requirements.txt
 ```
 ---
