@@ -101,17 +101,23 @@ Evaluated using:
 ## 🔗 Pretrained Model
 Due to GitHub file size limitations, the pretrained model is hosted externally:
 
- [Download Pretrained Model from Google Drive](https://drive.google.com/your_link_here)
+ [Download Pretrained Model from Google Drive](https://drive.google.com/drive/folders/1KM_kB6NubL9L8dBd9xabxWkREVIwyYOf?usp=sharing)
 
 Place it inside the checkpoints/ folder to run inference.
 
 ---
 
-### 🧩 Sample Outputs
+## 🧩 Sample Outputs
 
-Below is an example of YOLO predictions and 6D pose estimation results using the EnhancedRCVPose model on the validation sets:
+###  YOLOv8 predictions Results
+The object detector accurately identifies objects like **ape** and **duck**, even in cluttered scenes.
 
 ![Yolo Prediction](/sample_output/val_batch2_pred.jpg)
+
+###  6D Pose Estimation Results
+The EnhancedRCVPose model refines object positions and orientations using RGB-D input and 
+radius maps.
+
 ![Pose Estimation Prediction1](/sample_output/pose_estimate_pred1.jpg)
 ![Pose Estimation Prediction1](/sample_output/pose_estimate_pred2.jpg)
 ---
