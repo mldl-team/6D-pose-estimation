@@ -60,7 +60,7 @@ The notebook is built for use in **Google Colab**. Dependencies are installed wi
 pip install -r requirements.txt
 ```
 ---
-## Model Architecture
+## 🧱 Model Architecture
 
 ###  Object Detection
 - **YOLOv8s**: A lightweight and accurate object detector from Ultralytics.
@@ -77,10 +77,11 @@ pip install -r requirements.txt
 - **Outputs**:
   - 3D translation vector (x, y, z)
   - 4D rotation quaternion (x, y, z, w)
-  - 9 predicted radius maps (supervised via MSE)
+  - 9 radius maps: used both as input features and for supervision (via MSE loss)
+  - Uses 2D keypoint offset maps and PnP voting for final pose recovery
 ---
 
-##  Results
+## 📈 Results
 
 ###  Object Detection (YOLOv8)
 Evaluated using:
@@ -97,13 +98,27 @@ Evaluated using:
 
 >  Best model selected using validation loss  
 
+## 🔗 Pretrained Model
+Due to GitHub file size limitations, the pretrained model is hosted externally:
+
+ [Download Pretrained Model from Google Drive](https://drive.google.com/drive/folders/1KM_kB6NubL9L8dBd9xabxWkREVIwyYOf?usp=sharing)
+
+Place it inside the checkpoints/ folder to run inference.
+
 ---
 
-### 📸 Sample Outputs
+## 🧩 Sample Outputs
 
-Below is an example of YOLO predictions and 6D pose estimation results using the EnhancedRCVPose model on the validation sets:
+###  YOLOv8 predictions Results
+The object detector accurately identifies objects like **ape** and **duck**, even in cluttered scenes.
 
 ![Yolo Prediction](/sample_output/val_batch2_pred.jpg)
-![Pose Estimation Prediction](/sample_output/pose_estimate_pred.png)
+
+###  6D Pose Estimation Results
+The EnhancedRCVPose model refines object positions and orientations using RGB-D input and 
+radius maps.
+
+![Pose Estimation Prediction1](/sample_output/pose_estimate_pred1.jpg)
+![Pose Estimation Prediction1](/sample_output/pose_estimate_pred2.jpg)
 ---
 
